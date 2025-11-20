@@ -1,6 +1,9 @@
 # Aurora Design System
 
 A modern, playful design system built with React, TypeScript, and Tailwind CSS.
+Aurora UI is a production-ready design system featuring 10 accessible React components
+with TypeScript support, comprehensive testing, and interactive Storybook documentation.
+Built with a modern, playful aesthetic using custom gradient design tokens.
 
 ## Features
 

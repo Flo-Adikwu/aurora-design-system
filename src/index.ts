@@ -1,10 +1,9 @@
 // Component exports
-// Ensure the Button component exists in the specified path
 export { Button } from './components/Button/Button';
 export type { ButtonProps } from './components/Button/Button'
 
-// export { Input } from './components/Input';
-// export type { InputProps } from './components/Input';
+export { Input } from './components/Input/Input';
+export type { InputProps } from './components/Input/Input';
 
 // export { Select } from './components/Select';
 // export type { SelectProps } from './components/Select';
