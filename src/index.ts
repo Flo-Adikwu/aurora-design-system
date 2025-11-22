@@ -8,8 +8,8 @@ export type { InputProps } from './components/Input/Input';
 export { Select } from './components/Select/Select';
 export type { SelectProps } from './components/Select/Select';
 
-// export { Checkbox } from './components/Checkbox';
-// export type { CheckboxProps } from './components/Checkbox';
+export { Checkbox } from './components/Checkbox/Checkbox';
+export type { CheckboxProps } from './components/Checkbox/Checkbox';
 
 // export { Radio } from './components/Radio';
 // export type { RadioProps, RadioGroupProps } from './components/Radio';
