@@ -5,8 +5,8 @@ export type { ButtonProps } from './components/Button/Button'
 export { Input } from './components/Input/Input';
 export type { InputProps } from './components/Input/Input';
 
-// export { Select } from './components/Select';
-// export type { SelectProps } from './components/Select';
+export { Select } from './components/Select/Select';
+export type { SelectProps } from './components/Select/Select';
 
 // export { Checkbox } from './components/Checkbox';
 // export type { CheckboxProps } from './components/Checkbox';
