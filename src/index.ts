@@ -11,8 +11,8 @@ export type { SelectProps } from './components/Select/Select';
 export { Checkbox } from './components/Checkbox/Checkbox';
 export type { CheckboxProps } from './components/Checkbox/Checkbox';
 
-// export { Radio } from './components/Radio';
-// export type { RadioProps, RadioGroupProps } from './components/Radio';
+export { Radio } from './components/Radio/Radio';
+export type { RadioProps, RadioGroupProps } from './components/Radio/Radio';
 
 // export { Modal } from './components/Modal';
 // export type { ModalProps } from './components/Modal';
