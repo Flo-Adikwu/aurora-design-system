@@ -1,17 +1,11 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "../../utils/cn";
 
-const checkboxVariants = cva(
-  "peer h-5 w-5 shrink-0 rounded border-2 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+const checkboxContainerVariants = cva(
+  "relative inline-flex items-center justify-center shrink-0 transition-all duration-200",
   {
     variants: {
-      variant: {
-        default:
-          "border-gray-300 focus:ring-aurora-500 checked:bg-aurora-500 checked:border-aurora-500",
-        error:
-          "border-red-500 focus:ring-red-500 checked:bg-red-500 checked:border-red-500",
-      },
       checkboxSize: {
         sm: "h-4 w-4",
         md: "h-5 w-5",
@@ -19,7 +13,6 @@ const checkboxVariants = cva(
       },
     },
     defaultVariants: {
-      variant: "default",
       checkboxSize: "md",
     },
   }
@@ -51,12 +44,15 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       error,
       helperText,
       indeterminate = false,
-      variant,
+      variant = "default", // DEFAULT VALUE!
       checkboxSize = "md",
       labelPosition = "right",
       id,
       disabled,
       required,
+      checked,
+      defaultChecked, // Accept defaultChecked
+      onChange,
       ...props
     },
     ref
@@ -68,6 +64,21 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     const hasError = Boolean(error);
     const finalVariant = hasError ? "error" : variant;
 
+    // Determine if controlled
+    const isControlled = checked !== undefined;
+
+    // Track internal checked state (use defaultChecked as initial value)
+    const [internalChecked, setInternalChecked] = useState(
+      defaultChecked || false
+    );
+
+    // Sync with external checked prop (controlled mode only)
+    useEffect(() => {
+      if (isControlled && checked !== undefined) {
+        setInternalChecked(checked);
+      }
+    }, [checked, isControlled]);
+
     // Handle indeterminate state
     useEffect(() => {
       const checkbox = checkboxRef.current || (ref as any)?.current;
@@ -76,8 +87,25 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       }
     }, [indeterminate, ref]);
 
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      if (!isControlled) {
+        setInternalChecked(e.target.checked);
+      }
+      onChange?.(e);
+    };
+
+    const isChecked = isControlled ? checked : internalChecked;
+
+    // Smaller padding so gradient shows more
+    const checkmarkPadding = {
+      sm: "p-[3px]",
+      md: "p-1",
+      lg: "p-[5px]",
+    };
+
     const checkbox = (
-      <div className="relative inline-flex items-center">
+      <div className={cn(checkboxContainerVariants({ checkboxSize }))}>
+        {/* Hidden actual input */}
         <input
           ref={(element) => {
             checkboxRef.current = element;
@@ -92,49 +120,67 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
           id={checkboxId}
           disabled={disabled}
           required={required}
+          checked={isChecked}
           aria-invalid={hasError}
           aria-describedby={
             hasError ? errorId : helperText ? helperTextId : undefined
           }
-          className={cn(
-            checkboxVariants({ variant: finalVariant, checkboxSize }),
-            "cursor-pointer appearance-none",
-            className
-          )}
+          className="sr-only"
+          onChange={handleChange}
           {...props}
         />
-        {/* Custom checkmark */}
-        <svg
+
+        {/* Visual checkbox - EXACT SAME STRUCTURE AS RADIO */}
+        <div
           className={cn(
-            "pointer-events-none absolute left-0 h-full w-full text-white opacity-0 transition-opacity duration-200",
-            "peer-checked:opacity-100",
-            checkboxSize === "sm" && "p-0.5",
-            checkboxSize === "md" && "p-1",
-            checkboxSize === "lg" && "p-1.5"
+            "absolute inset-0 rounded-sm border-2 transition-all duration-200 cursor-pointer",
+            !isChecked && !indeterminate && "border-gray-300",
+            (isChecked || indeterminate) &&
+              finalVariant === "default" &&
+              "border-transparent gradient-aurora",
+            (isChecked || indeterminate) &&
+              finalVariant === "error" &&
+              "border-red-500 bg-red-500",
+            disabled && "opacity-50 cursor-not-allowed"
           )}
-          viewBox="0 0 16 16"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          aria-hidden="true"
-        >
-          <path
-            d="M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z"
-            fill="currentColor"
-          />
-        </svg>
-        {/* Indeterminate dash */}
-        {indeterminate && (
+          onClick={() => {
+            if (!disabled) {
+              const input = document.getElementById(
+                checkboxId
+              ) as HTMLInputElement;
+              input?.click();
+            }
+          }}
+        />
+
+        {/* Checkmark */}
+        {isChecked && !indeterminate && (
           <svg
             className={cn(
-              "pointer-events-none absolute left-0 h-full w-full text-white",
-              checkboxSize === "sm" && "p-1",
-              checkboxSize === "md" && "p-1.5",
-              checkboxSize === "lg" && "p-2"
+              "absolute inset-0 text-white pointer-events-none z-10",
+              checkmarkPadding[checkboxSize]
             )}
             viewBox="0 0 16 16"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            aria-hidden="true"
+          >
+            <path
+              d="M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z"
+              fill="currentColor"
+            />
+          </svg>
+        )}
+
+        {/* Indeterminate dash */}
+        {indeterminate && (
+          <svg
+            className={cn(
+              "absolute inset-0 text-white pointer-events-none z-10",
+              checkmarkPadding[checkboxSize]
+            )}
+            viewBox="0 0 16 16"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <rect
               x="3"

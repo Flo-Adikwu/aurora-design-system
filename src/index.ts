@@ -14,8 +14,8 @@ export type { CheckboxProps } from './components/Checkbox/Checkbox';
 export { Radio } from './components/Radio/Radio';
 export type { RadioProps, RadioGroupProps } from './components/Radio/Radio';
 
-// export { Modal } from './components/Modal';
-// export type { ModalProps } from './components/Modal';
+export { Modal } from './components/Modal/Modal';
+export type { ModalProps } from './components/Modal/Modal';
 
 // export { Tooltip } from './components/Tooltip';
 // export type { TooltipProps } from './components/Tooltip';

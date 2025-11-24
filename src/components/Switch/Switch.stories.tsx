@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Switch } from "./Switch";
+import { Button } from "../Button";
 import React from "react";
 
 const meta: Meta<typeof Switch> = {
@@ -152,12 +153,9 @@ export const Controlled: Story = {
           Status:{" "}
           <span className="font-semibold">{checked ? "On" : "Off"}</span>
         </div>
-        <button
-          onClick={() => setChecked(!checked)}
-          className="rounded-aurora bg-aurora-500 px-4 py-2 text-sm text-white hover:bg-aurora-600"
-        >
+        <Button onClick={() => setChecked(!checked)} size="sm">
           Toggle Externally
-        </button>
+        </Button>
       </div>
     );
   },
@@ -373,12 +371,9 @@ export const WithValidation: Story = {
           required
         />
 
-        <button
-          onClick={handleSubmit}
-          className="w-full rounded-aurora bg-aurora-500 px-4 py-2 text-white hover:bg-aurora-600"
-        >
+        <Button onClick={handleSubmit} fullWidth>
           Submit
-        </button>
+        </Button>
       </div>
     );
   },

@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { RadioGroup, Radio, RadioOption } from "./Radio";
+import { Button } from "../Button";
 import React from "react";
 
 const sizeOptions: RadioOption[] = [
@@ -202,24 +203,15 @@ export const Controlled: Story = {
           </p>
         </div>
         <div className="flex gap-2">
-          <button
-            onClick={() => setValue("small")}
-            className="rounded-aurora bg-aurora-500 px-3 py-1.5 text-sm text-white hover:bg-aurora-600"
-          >
+          <Button onClick={() => setValue("small")} size="sm">
             Select Small
-          </button>
-          <button
-            onClick={() => setValue("medium")}
-            className="rounded-aurora bg-aurora-500 px-3 py-1.5 text-sm text-white hover:bg-aurora-600"
-          >
+          </Button>
+          <Button onClick={() => setValue("medium")} size="sm">
             Select Medium
-          </button>
-          <button
-            onClick={() => setValue("large")}
-            className="rounded-aurora bg-aurora-500 px-3 py-1.5 text-sm text-white hover:bg-aurora-600"
-          >
+          </Button>
+          <Button onClick={() => setValue("large")} size="sm">
             Select Large
-          </button>
+          </Button>
         </div>
       </div>
     );

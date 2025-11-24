@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Checkbox } from "./Checkbox";
+import { Button } from "../Button";
 import React from "react";
 
 const meta: Meta<typeof Checkbox> = {
@@ -166,12 +167,9 @@ export const Controlled: Story = {
             {checked ? "Checked" : "Unchecked"}
           </span>
         </div>
-        <button
-          onClick={() => setChecked(!checked)}
-          className="rounded-aurora bg-aurora-500 px-4 py-2 text-sm text-white hover:bg-aurora-600"
-        >
+        <Button onClick={() => setChecked(!checked)} size="sm">
           Toggle Externally
-        </button>
+        </Button>
       </div>
     );
   },

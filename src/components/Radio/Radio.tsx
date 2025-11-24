@@ -1,17 +1,11 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "../../utils/cn";
 
-const radioVariants = cva(
-  "peer h-5 w-5 shrink-0 rounded-full border-2 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+const radioContainerVariants = cva(
+  "relative inline-flex items-center justify-center shrink-0 transition-all duration-200",
   {
     variants: {
-      variant: {
-        default:
-          "border-gray-300 focus:ring-aurora-500 checked:border-aurora-500 checked:bg-aurora-500",
-        error:
-          "border-red-500 focus:ring-red-500 checked:border-red-500 checked:bg-red-500",
-      },
       radioSize: {
         sm: "h-4 w-4",
         md: "h-5 w-5",
@@ -19,7 +13,6 @@ const radioVariants = cva(
       },
     },
     defaultVariants: {
-      variant: "default",
       radioSize: "md",
     },
   }
@@ -32,8 +25,7 @@ export interface RadioOption {
   helperText?: string;
 }
 
-export interface RadioGroupProps
-  extends Omit<VariantProps<typeof radioVariants>, "size"> {
+export interface RadioGroupProps {
   /** Label for the radio group */
   label?: string;
   /** Array of radio options */
@@ -88,6 +80,23 @@ export const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
     const hasError = Boolean(error);
     const finalVariant = hasError ? "error" : variant;
 
+    // Internal state for uncontrolled mode
+    const [selectedValue, setSelectedValue] = useState(value);
+
+    // Sync with external value prop
+    useEffect(() => {
+      if (value !== undefined) {
+        setSelectedValue(value);
+      }
+    }, [value]);
+
+    const handleChange = (optionValue: string) => {
+      setSelectedValue(optionValue);
+      onChange?.(optionValue);
+    };
+
+    const currentValue = value !== undefined ? value : selectedValue;
+
     return (
       <div ref={ref} className={cn("flex flex-col gap-3", className)}>
         {label && (
@@ -116,8 +125,8 @@ export const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
               value={option.value}
               label={option.label}
               helperText={option.helperText}
-              checked={value === option.value}
-              onChange={() => onChange?.(option.value)}
+              checked={currentValue === option.value}
+              onChange={() => handleChange(option.value)}
               disabled={disabled || option.disabled}
               variant={finalVariant}
               radioSize={radioSize}
@@ -165,6 +174,8 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
       radioSize = "md",
       disabled,
       id,
+      checked,
+      onChange,
       ...props
     },
     ref
@@ -172,34 +183,78 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
     const radioId = id || `radio-${React.useId()}`;
     const helperTextId = helperText ? `${radioId}-helper` : undefined;
 
+    // Track internal checked state
+    const [internalChecked, setInternalChecked] = useState(checked || false);
+
+    // Sync with external checked prop
+    useEffect(() => {
+      if (checked !== undefined) {
+        setInternalChecked(checked);
+      }
+    }, [checked]);
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setInternalChecked(e.target.checked);
+      onChange?.(e);
+    };
+
+    const isChecked = checked !== undefined ? checked : internalChecked;
+
+    // Smaller dot padding so gradient shows more around it
+    const dotPadding = {
+      sm: "p-[3px]", // Smaller padding = bigger gradient ring
+      md: "p-1", // Smaller padding = bigger gradient ring
+      lg: "p-[5px]", // Smaller padding = bigger gradient ring
+    };
+
     return (
       <div className="flex items-start gap-2">
-        <div className="relative inline-flex items-center">
+        <div className={cn(radioContainerVariants({ radioSize }))}>
+          {/* Hidden actual input */}
           <input
             ref={ref}
             type="radio"
             id={radioId}
             disabled={disabled}
+            checked={isChecked}
             aria-describedby={helperTextId}
-            className={cn(
-              radioVariants({ variant, radioSize }),
-              "cursor-pointer appearance-none",
-              className
-            )}
+            className="sr-only"
+            onChange={handleChange}
             {...props}
           />
-          {/* Custom radio dot */}
+
+          {/* Visual radio - FULL gradient background when checked */}
           <div
             className={cn(
-              "pointer-events-none absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-200 peer-checked:opacity-100",
-              radioSize === "sm" && "p-1",
-              radioSize === "md" && "p-1.5",
-              radioSize === "lg" && "p-2"
+              "absolute inset-0 rounded-full border-2 transition-all duration-200 cursor-pointer",
+              !isChecked && "border-gray-300",
+              isChecked &&
+                variant === "default" &&
+                "border-transparent gradient-aurora",
+              isChecked && variant === "error" && "border-red-500 bg-red-500",
+              disabled && "opacity-50 cursor-not-allowed"
             )}
-            aria-hidden="true"
-          >
-            <div className="h-full w-full rounded-full bg-white" />
-          </div>
+            onClick={() => {
+              if (!disabled) {
+                const input = document.getElementById(
+                  radioId
+                ) as HTMLInputElement;
+                input?.click();
+              }
+            }}
+          />
+
+          {/* Radio dot - SMALLER white dot so gradient ring shows */}
+          {isChecked && (
+            <div
+              className={cn(
+                "absolute inset-0 flex items-center justify-center pointer-events-none z-10",
+                dotPadding[radioSize]
+              )}
+            >
+              <div className="h-full w-full rounded-full bg-white" />
+            </div>
+          )}
         </div>
 
         {(label || helperText) && (
