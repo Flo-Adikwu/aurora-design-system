@@ -26,8 +26,8 @@ export type { RadioProps, RadioGroupProps } from './components/Radio/Radio';
 // export { Badge } from './components/Badge';
 // export type { BadgeProps } from './components/Badge';
 
-// export { Switch } from './components/Switch';
-// export type { SwitchProps } from './components/Switch';
+export { Switch } from './components/Switch/Switch';
+export type { SwitchProps } from './components/Switch/Switch';
 
 // Utility exports
 // export { cn } from './utils/cn';
