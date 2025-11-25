@@ -17,8 +17,8 @@ export type { RadioProps, RadioGroupProps } from './components/Radio/Radio';
 export { Modal } from './components/Modal/Modal';
 export type { ModalProps } from './components/Modal/Modal';
 
-// export { Tooltip } from './components/Tooltip';
-// export type { TooltipProps } from './components/Tooltip';
+export { Tooltip } from './components/Tooltip/Tooltip';
+export type { TooltipProps } from './components/Tooltip/Tooltip';
 
 // export { Card } from './components/Card';
 // export type { CardProps } from './components/Card';
@@ -28,6 +28,3 @@ export type { ModalProps } from './components/Modal/Modal';
 
 export { Switch } from './components/Switch/Switch';
 export type { SwitchProps } from './components/Switch/Switch';
-
-// Utility exports
-// export { cn } from './utils/cn';
