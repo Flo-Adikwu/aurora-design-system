@@ -1,5 +1,5 @@
 {
-  "name": "@flo-adikwu/aurora-design-system",
+  "name": "aurora-design-system",
   "version": "0.1.0",
   "description": "A modern React component library with TypeScript, Tailwind CSS, and Web3 aesthetics",
   "main": "./dist/aurora-ui.umd.js",
