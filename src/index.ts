@@ -20,11 +20,11 @@ export type { ModalProps } from './components/Modal/Modal';
 export { Tooltip } from './components/Tooltip/Tooltip';
 export type { TooltipProps } from './components/Tooltip/Tooltip';
 
-// export { Card } from './components/Card';
-// export type { CardProps } from './components/Card';
+export { Card } from './components/Card/Card';
+export type { CardProps } from './components/Card/Card';
 
-// export { Badge } from './components/Badge';
-// export type { BadgeProps } from './components/Badge';
+export { Badge } from './components/Badge/Badge';
+export type { BadgeProps } from './components/Badge/Badge';
 
 export { Switch } from './components/Switch/Switch';
 export type { SwitchProps } from './components/Switch/Switch';
