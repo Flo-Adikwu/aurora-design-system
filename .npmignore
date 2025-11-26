@@ -1,0 +1,33 @@
+# Development files
+src/
+.storybook/
+public/
+
+# Tests
+*.test.tsx
+*.test.ts
+vitest.config.ts
+src/test/
+
+# Config files
+tsconfig.json
+tsconfig.node.json
+vite.config.ts
+tailwind.config.js
+postcss.config.js
+
+# Documentation
+*.md
+.github/
+
+# Build artifacts
+node_modules/
+storybook-static/
+
+# Environment
+.env
+.env.*
+
+# IDE
+.vscode/
+.idea/

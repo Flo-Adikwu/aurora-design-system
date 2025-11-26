@@ -1,96 +1,103 @@
-# Aurora Design System
+# 🌟 Aurora UI
 
-A modern, playful design system built with React, TypeScript, and Tailwind CSS.
-Aurora UI is a production-ready design system featuring 10 accessible React components
-with TypeScript support, comprehensive testing, and interactive Storybook documentation.
-Built with a modern, playful aesthetic using custom gradient design tokens.
+> A modern React component library with TypeScript, Tailwind CSS, and Web3 aesthetics.
 
-## Features
+[![npm version](https://img.shields.io/npm/v/@flo-adikwu/aurora-ui.svg)](https://www.npmjs.com/package/@flo-adikwu/aurora-ui)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-✨ **Modern & Playful** - Clean aesthetics with gradient accents and smooth animations  
-🎨 **Fully Typed** - Complete TypeScript support with excellent IntelliSense  
-♿ **Accessible** - WCAG 2.1 compliant with comprehensive accessibility testing  
-🎯 **Customizable** - Built with Tailwind CSS and class-variance-authority  
-📦 **Tree-shakeable** - Import only what you need  
-🧪 **Well Tested** - Comprehensive test coverage with Vitest and jest-axe
+[📖 Documentation](https://aurora-design-system.vercel.app) | [💻 GitHub](https://github.com/Flo-Adikwu/aurora-design-system)
 
-## Installation
+---
+
+## ✨ Features
+
+- 🎨 **10 Beautiful Components** - Button, Input, Select, Checkbox, Radio, Switch, Modal, Tooltip, Card, Badge
+- 📘 **Full TypeScript Support** - Complete type definitions
+- ♿ **Accessible** - WCAG 2.1 AA compliant
+- 🎭 **Multiple Variants** - Extensive customization options
+- 🌈 **Aurora Theme** - Unique gradient aesthetics
+- 🧪 **Well Tested** - Comprehensive test coverage
+- 📦 **Tree-shakeable** - Import only what you need
+
+---
+
+## 📦 Installation
 
 ```bash
-npm install aurora-design-system
-# or
-yarn add aurora-design-system
-# or
-pnpm add aurora-design-system
+npm install @flo-adikwu/aurora-ui
 ```
 
-## Usage
+---
+
+## 🚀 Quick Start
 
 ```tsx
-import { Button } from "aurora-design-system";
+import { Button, Card, Input } from "@flo-adikwu/aurora-ui";
+import "@flo-adikwu/aurora-ui/dist/style.css";
 
 function App() {
   return (
-    <Button variant="primary" size="md">
-      Click me
-    </Button>
+    <Card variant="gradient" padding="lg">
+      <h2>Welcome to Aurora</h2>
+      <Input label="Email" type="email" placeholder="you@example.com" />
+      <Button variant="gradient" size="lg">
+        Get Started
+      </Button>
+    </Card>
   );
 }
 ```
 
-## Components
+---
 
-- **Button** - Versatile button with multiple variants and states
-- **Input** - Text input with label, error states, and icons
-- **Select** - Dropdown select component
-- **Checkbox** - Accessible checkbox with indeterminate state
-- **Radio** - Radio button groups
-- **Modal** - Accessible dialog/modal component
-- **Tooltip** - Contextual tooltips with positioning
-- **Card** - Flexible card component
-- **Badge** - Small status indicators
-- **Switch** - Toggle switch component
+## 📖 Components
 
-## Development
+- **Button** - Multiple variants, sizes, and states
+- **Input** - Text inputs with validation and icons
+- **Select** - Custom dropdown with search
+- **Checkbox** - Standard and indeterminate states
+- **Radio** - Radio groups with layouts
+- **Switch** - Animated toggle switches
+- **Modal** - Accessible dialogs with focus management
+- **Tooltip** - Positioned tooltips with auto-placement
+- **Card** - Flexible layout component
+- **Badge** - Status indicators and counts
 
-```bash
-# Install dependencies
-npm install
+[View Full Documentation →](https://aurora-design-system.vercel.app)
 
-# Start Storybook
-npm run storybook
+---
 
-# Run tests
-npm test
+## 🎨 Customization
 
-# Build library
-npm run build
+Aurora uses Tailwind CSS. Add the Aurora colors to your `tailwind.config.js`:
+
+```js
+module.exports = {
+  theme: {
+    extend: {
+      colors: {
+        aurora: {
+          500: "#0ea5e9",
+          600: "#0284c7",
+        },
+      },
+    },
+  },
+};
 ```
 
-## Design Tokens
+---
 
-Aurora Design System uses a cohesive color system with three primary gradients:
+## 📄 License
 
-- **Aurora Blue** - Primary brand color
-- **Purple** - Secondary accent
-- **Pink** - Tertiary accent
+MIT © [Florence Adikwu](https://github.com/Flo-Adikwu)
 
-All components support smooth transitions, hover states, and focus indicators for an engaging user experience.
+---
 
-## Accessibility
+## 🤝 Contributing
 
-All components are built with accessibility in mind:
+Contributions are welcome! See [GitHub repository](https://github.com/Flo-Adikwu/aurora-design-system).
 
-- Proper ARIA attributes
-- Keyboard navigation support
-- Screen reader friendly
-- Focus management
-- Color contrast compliance
+---
 
-## License
-
-MIT © Florence
-
-## Author
-
-Built by Florence Adikwu- Senior Frontend Engineer specializing in React, TypeScript, and modern design systems.
+**Made with ❤️ by Florence Adikwu**
