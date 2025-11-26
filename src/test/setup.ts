@@ -1,10 +1,16 @@
 import '@testing-library/jest-dom';
-import { expect, afterEach } from 'vitest';
-import { cleanup } from '@testing-library/react';
-import * as matchers from '@testing-library/jest-dom/matchers';
+import { expect } from 'vitest';
+import * as matchers from 'jest-axe';
 
 expect.extend(matchers);
 
-afterEach(() => {
-  cleanup();
-});
+declare global {
+  namespace Vi {
+    interface Assertion {
+      toHaveNoViolations(): void;
+    }
+    interface AsymmetricMatchersContaining {
+      toHaveNoViolations(): void;
+    }
+  }
+}
