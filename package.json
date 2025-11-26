@@ -1,6 +1,6 @@
 {
   "name": "aurora-design-system",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A modern React component library with TypeScript, Tailwind CSS, and Web3 aesthetics",
   "main": "./dist/aurora-ui.umd.js",
   "module": "./dist/aurora-ui.es.js",

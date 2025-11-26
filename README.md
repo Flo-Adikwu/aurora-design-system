@@ -5,7 +5,7 @@
 [![npm version](https://img.shields.io/npm/v/@flo-adikwu/aurora-ui.svg)](https://www.npmjs.com/package/@flo-adikwu/aurora-ui)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-[📖 Documentation](https://aurora-design-system.vercel.app) | [💻 GitHub](https://github.com/Flo-Adikwu/aurora-design-system)
+[📖 Documentation](https://aurora-ds.vercel.app) | [💻 GitHub](https://github.com/Flo-Adikwu/aurora-design-system)
 
 ---
 
@@ -24,7 +24,7 @@
 ## 📦 Installation
 
 ```bash
-npm install @flo-adikwu/aurora-ui
+npm install aurora-design-system
 ```
 
 ---
@@ -32,8 +32,8 @@ npm install @flo-adikwu/aurora-ui
 ## 🚀 Quick Start
 
 ```tsx
-import { Button, Card, Input } from "@flo-adikwu/aurora-ui";
-import "@flo-adikwu/aurora-ui/dist/style.css";
+import { Button, Card, Input } from "aurora-design-system";
+import "aurora-design-system/dist/style.css";
 
 function App() {
   return (
@@ -63,7 +63,7 @@ function App() {
 - **Card** - Flexible layout component
 - **Badge** - Status indicators and counts
 
-[View Full Documentation →](https://aurora-design-system.vercel.app)
+[View Full Documentation →](https://aurora-ds.vercel.app)
 
 ---
 
