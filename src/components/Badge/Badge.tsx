@@ -8,12 +8,12 @@ const badgeVariants = cva(
     variants: {
       variant: {
         default: "bg-gray-100 text-gray-800 hover:bg-gray-200",
-        primary: "bg-aurora-100 text-aurora-800 hover:bg-aurora-200",
+        primary: "bg-blue-100 text-blue-800 hover:bg-blue-200",
         success: "bg-green-100 text-green-800 hover:bg-green-200",
         warning: "bg-yellow-100 text-yellow-800 hover:bg-yellow-200",
         error: "bg-red-100 text-red-800 hover:bg-red-200",
         info: "bg-blue-100 text-blue-800 hover:bg-blue-200",
-        gradient: "gradient-aurora text-white shadow-aurora-sm",
+        gradient: "text-white shadow-sm", // Base styles for gradient
       },
       badgeSize: {
         sm: "text-xs px-2 py-0.5",
@@ -42,11 +42,8 @@ const badgeVariants = cva(
 export interface BadgeProps
   extends React.HTMLAttributes<HTMLSpanElement>,
     Omit<VariantProps<typeof badgeVariants>, "dot"> {
-  /** Whether to show a dot indicator */
   dot?: boolean;
-  /** Size of the badge */
   badgeSize?: "sm" | "md" | "lg";
-  /** Color variant */
   variant?:
     | "default"
     | "primary"
@@ -55,15 +52,34 @@ export interface BadgeProps
     | "error"
     | "info"
     | "gradient";
-  /** Shape of the badge */
   shape?: "rounded" | "pill" | "square";
 }
 
 export const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
   (
-    { className, variant, badgeSize, shape, dot = false, children, ...props },
+    {
+      className,
+      variant,
+      badgeSize,
+      shape,
+      dot = false,
+      children,
+      style,
+      ...props
+    },
     ref
   ) => {
+    // Apply inline gradient when variant is gradient
+    const gradientStyle =
+      variant === "gradient"
+        ? {
+            background:
+              "linear-gradient(135deg, #0ea5e9 0%, #a855f7 50%, #ec4899 100%)",
+            backgroundSize: "200% 200%",
+            ...style,
+          }
+        : style;
+
     return (
       <span
         ref={ref}
@@ -71,6 +87,7 @@ export const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
           badgeVariants({ variant, badgeSize, shape, dot }),
           className
         )}
+        style={gradientStyle}
         {...props}
       >
         {dot && (
@@ -78,7 +95,7 @@ export const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
             className={cn(
               "inline-block w-1.5 h-1.5 rounded-full mr-1.5",
               variant === "default" && "bg-gray-500",
-              variant === "primary" && "bg-aurora-600",
+              variant === "primary" && "bg-blue-600",
               variant === "success" && "bg-green-600",
               variant === "warning" && "bg-yellow-600",
               variant === "error" && "bg-red-600",
@@ -95,13 +112,10 @@ export const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
 
 Badge.displayName = "Badge";
 
-// Notification Badge Component (for counts)
+// NotificationBadge Component
 export interface NotificationBadgeProps extends Omit<BadgeProps, "children"> {
-  /** Count to display */
   count: number;
-  /** Max count to display before showing + */
   max?: number;
-  /** Whether to show when count is 0 */
   showZero?: boolean;
 }
 

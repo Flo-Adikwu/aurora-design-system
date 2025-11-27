@@ -1,35 +1,42 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { Button } from './Button';
+import type { Meta, StoryObj } from "@storybook/react";
+import { Button } from "./Button";
 
 const meta: Meta<typeof Button> = {
-  title: 'Components/Button',
+  title: "Components/Button",
   component: Button,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     variant: {
-      control: 'select',
-      options: ['primary', 'secondary', 'outline', 'ghost', 'danger'],
-      description: 'The visual style variant of the button',
+      control: "select",
+      options: [
+        "primary",
+        "secondary",
+        "outline",
+        "ghost",
+        "danger",
+        "gradient",
+      ],
+      description: "The visual style variant of the button",
     },
     size: {
-      control: 'select',
-      options: ['sm', 'md', 'lg'],
-      description: 'The size of the button',
+      control: "select",
+      options: ["sm", "md", "lg"],
+      description: "The size of the button",
     },
     isLoading: {
-      control: 'boolean',
-      description: 'Shows loading spinner and disables the button',
+      control: "boolean",
+      description: "Shows loading spinner and disables the button",
     },
     disabled: {
-      control: 'boolean',
-      description: 'Disables the button',
+      control: "boolean",
+      description: "Disables the button",
     },
     fullWidth: {
-      control: 'boolean',
-      description: 'Makes the button full width',
+      control: "boolean",
+      description: "Makes the button full width",
     },
   },
 };
@@ -37,89 +44,111 @@ const meta: Meta<typeof Button> = {
 export default meta;
 type Story = StoryObj<typeof Button>;
 
+// ========== VARIANTS ==========
+
 export const Primary: Story = {
   args: {
-    children: 'Primary Button',
-    variant: 'primary',
+    children: "Primary Button",
+    variant: "primary",
   },
 };
 
 export const Secondary: Story = {
   args: {
-    children: 'Secondary Button',
-    variant: 'secondary',
+    children: "Secondary Button",
+    variant: "secondary",
   },
 };
 
 export const Outline: Story = {
   args: {
-    children: 'Outline Button',
-    variant: 'outline',
+    children: "Outline Button",
+    variant: "outline",
   },
 };
 
 export const Ghost: Story = {
   args: {
-    children: 'Ghost Button',
-    variant: 'ghost',
+    children: "Ghost Button",
+    variant: "ghost",
   },
 };
 
 export const Danger: Story = {
   args: {
-    children: 'Danger Button',
-    variant: 'danger',
+    children: "Danger Button",
+    variant: "danger",
   },
 };
 
+export const Gradient: Story = {
+  args: {
+    children: "Gradient Button",
+    variant: "gradient",
+  },
+};
+
+// ========== SIZES ==========
+
 export const Small: Story = {
   args: {
-    children: 'Small Button',
-    size: 'sm',
+    children: "Small Button",
+    size: "sm",
+    variant: "primary", // ← ADDED!
   },
 };
 
 export const Medium: Story = {
   args: {
-    children: 'Medium Button',
-    size: 'md',
+    children: "Medium Button",
+    size: "md",
+    variant: "primary", // ← ADDED!
   },
 };
 
 export const Large: Story = {
   args: {
-    children: 'Large Button',
-    size: 'lg',
+    children: "Large Button",
+    size: "lg",
+    variant: "primary", // ← ADDED!
   },
 };
 
+// ========== STATES ==========
+
 export const Loading: Story = {
   args: {
-    children: 'Loading...',
+    children: "Loading...",
     isLoading: true,
+    variant: "primary", // ← ADDED!
   },
 };
 
 export const Disabled: Story = {
   args: {
-    children: 'Disabled Button',
+    children: "Disabled Button",
     disabled: true,
+    variant: "primary", // ← ADDED!
   },
 };
 
 export const FullWidth: Story = {
   args: {
-    children: 'Full Width Button',
+    children: "Full Width Button",
     fullWidth: true,
+    variant: "primary", // ← ADDED!
   },
   parameters: {
-    layout: 'padded',
+    layout: "padded",
   },
 };
 
+// ========== WITH ICONS ==========
+
 export const WithLeftIcon: Story = {
   args: {
-    children: 'Download',
+    children: "Download",
+    variant: "primary", // ← ADDED!
     leftIcon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -142,7 +171,8 @@ export const WithLeftIcon: Story = {
 
 export const WithRightIcon: Story = {
   args: {
-    children: 'Next',
+    children: "Next",
+    variant: "primary", // ← ADDED!
     rightIcon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -161,6 +191,8 @@ export const WithRightIcon: Story = {
   },
 };
 
+// ========== SHOWCASES ==========
+
 export const AllVariants: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
@@ -169,6 +201,7 @@ export const AllVariants: Story = {
       <Button variant="outline">Outline</Button>
       <Button variant="ghost">Ghost</Button>
       <Button variant="danger">Danger</Button>
+      <Button variant="gradient">Gradient</Button>
     </div>
   ),
 };
@@ -176,9 +209,15 @@ export const AllVariants: Story = {
 export const AllSizes: Story = {
   render: () => (
     <div className="flex items-center gap-4">
-      <Button size="sm">Small</Button>
-      <Button size="md">Medium</Button>
-      <Button size="lg">Large</Button>
+      <Button variant="primary" size="sm">
+        Small
+      </Button>
+      <Button variant="primary" size="md">
+        Medium
+      </Button>
+      <Button variant="primary" size="lg">
+        Large
+      </Button>
     </div>
   ),
 };
